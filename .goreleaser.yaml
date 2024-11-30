@@ -23,6 +23,27 @@ builds:
       - windows
       - darwin
 
+dockers:
+  - image_templates:
+      - "myorg/myuser:{{ .Tag }}-amd64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/amd64"
+  - image_templates:
+      - "myorg/myuser:{{ .Tag }}-arm64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+    goarch: arm64
+
+docker_manifests:
+  - name_template: "myorg/myuser:{{ .Tag }}"
+    image_templates:
+      - "myorg/myuser:{{ .Tag }}-amd64"
+      - "myorg/myuser:{{ .Tag }}-arm64"
+
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of `uname`.
