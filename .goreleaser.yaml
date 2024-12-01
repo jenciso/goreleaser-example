@@ -9,7 +9,7 @@
 version: 2
 
 env:
-  - IMAGE_NAME={{ .Env.REGISTRY }}/goreleaser-example
+  - IMAGE_NAME=jenciso/goreleaser-example
   - REGISTRY=ghcr.io
 
 before:
