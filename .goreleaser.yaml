@@ -8,6 +8,9 @@
 
 version: 2
 
+env:
+  - IMAGE_NAME="goreleaser-example"
+
 before:
   hooks:
     # You may remove this if you don't use go modules.
@@ -25,13 +28,13 @@ builds:
 
 dockers:
   - image_templates:
-      - "jenciso/goreleaser-example:{{ .Version }}-amd64"
+      - "jenciso/{{ .Env.IMAGE_NAME }}{{ .Version }}-amd64"
     use: buildx
     build_flag_templates:
       - "--pull"
       - "--platform=linux/amd64"
   - image_templates:
-      - "jenciso/goreleaser-example:{{ .Version }}-arm64"
+      - "jenciso/{{ .Env.IMAGE_NAME }}{{ .Version }}-arm64"
     use: buildx
     build_flag_templates:
       - "--pull"
@@ -39,10 +42,10 @@ dockers:
     goarch: arm64
 
 docker_manifests:
-  - name_template: "jenciso/goreleaser-example:{{ .Version }}"
+  - name_template: "jenciso/{{ .Env.IMAGE_NAME }}{{ .Version }}"
     image_templates:
-      - "jenciso/goreleaser-example:{{ .Version }}-amd64"
-      - "jenciso/goreleaser-example:{{ .Version }}-arm64"
+      - "jenciso/{{ .Env.IMAGE_NAME }}{{ .Version }}-amd64"
+      - "jenciso/{{ .Env.IMAGE_NAME }}{{ .Version }}-arm64"
 
 archives:
   - format: tar.gz
