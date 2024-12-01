@@ -37,20 +37,12 @@ dockers:
       - "--pull"
       - "--platform=linux/arm64"
     goarch: arm64
-  - image_templates:
-      - "jenciso/goreleaser-example:{{ .Version }}-arm64v8"
-    use: buildx
-    build_flag_templates:
-      - "--pull"
-      - "--platform=linux/arm64/v8"
-    goarch: arm64
 
 docker_manifests:
   - name_template: "jenciso/goreleaser-example:{{ .Version }}"
     image_templates:
       - "jenciso/goreleaser-example:{{ .Version }}-amd64"
       - "jenciso/goreleaser-example:{{ .Version }}-arm64"
-      - "jenciso/goreleaser-example:{{ .Version }}-arm64v8"
 
 archives:
   - format: tar.gz
